@@ -68,6 +68,7 @@ export function CheckoutForm() {
   const couponCode = useCartStore((s) => s.couponCode);
 
   const applyCouponStore = useCartStore((s) => s.applyCoupon);
+  const clearCart = useCartStore((s) => s.clearCart);
 
   const [step, setStep] = useState<CheckoutStep>("address");
 
@@ -249,8 +250,9 @@ export function CheckoutForm() {
 
       if (!response.ok) throw new Error(data?.message ?? "Checkout failed");
 
-      if (data?.url) window.location.href = data.url;
+      clearCart();
 
+      if (data?.url) window.location.href = data.url;
       else window.location.href = "/checkout/success";
 
     } catch (error) {

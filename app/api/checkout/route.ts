@@ -117,6 +117,10 @@ export async function POST(request: Request) {
       });
     }
 
+    await prisma.cartItem.deleteMany({
+      where: { userId: session.user.id }
+    });
+
     await prisma.payment.create({
       data: {
         userId: session.user.id,

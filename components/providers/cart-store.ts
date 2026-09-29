@@ -60,6 +60,15 @@ async function syncRemove(productId: string) {
   }
 }
 
+async function syncClearAll() {
+  if (!syncUserId) return;
+  try {
+    await fetch("/api/cart", { method: "DELETE" });
+  } catch {
+    // ignore network errors
+  }
+}
+
 async function syncSaveForLater(productId: string) {
   if (!syncUserId) return;
   try {
@@ -180,9 +189,14 @@ export const useCartStore = create<CartState>()(
       applyCoupon: (code, discount) => set({ couponCode: code, couponDiscount: discount }),
       clearCoupon: () => set({ couponCode: null, couponDiscount: 0 }),
       clearCart: () => {
-        const productIds = get().items.map((item) => item.product.id);
-        set({ items: [], couponCode: null, couponDiscount: 0 });
-        productIds.forEach((productId) => void syncRemove(productId));
+        set({
+          items: [],
+          couponCode: null,
+          couponDiscount: 0,
+          previewOpen: false,
+          previewItem: null
+        });
+        void syncClearAll();
       },
       subtotal: () => get().items.reduce((total, item) => total + item.product.price * item.quantity, 0),
       count: () => get().items.reduce((total, item) => total + item.quantity, 0)

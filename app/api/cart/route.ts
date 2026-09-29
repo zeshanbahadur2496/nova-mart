@@ -55,16 +55,21 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
   }
 
-  const { productId } = await request.json();
+  const raw = await request.text();
+  const productId = raw ? ((JSON.parse(raw) as { productId?: string }).productId ?? undefined) : undefined;
 
-  await prisma.cartItem.delete({
-    where: {
-      userId_productId: {
+  if (productId) {
+    await prisma.cartItem.deleteMany({
+      where: {
         userId: session.user.id,
         productId
       }
-    }
-  });
+    });
+  } else {
+    await prisma.cartItem.deleteMany({
+      where: { userId: session.user.id }
+    });
+  }
 
   return NextResponse.json({ ok: true });
 }
