@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { absoluteUrl } from "@/lib/utils";
 
 export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
@@ -35,7 +36,7 @@ export async function POST(request: Request) {
     data: { identifier: session.user.email, token, expires }
   });
 
-  const verifyUrl = `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/verify-email?token=${token}&email=${encodeURIComponent(session.user.email)}`;
+  const verifyUrl = `${absoluteUrl("", request)}/verify-email?token=${token}&email=${encodeURIComponent(session.user.email)}`;
   if (process.env.NODE_ENV !== "production") {
     console.log("[email-verify]", verifyUrl);
   }
