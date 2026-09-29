@@ -1,0 +1,288 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --store-bg: #f7f5f2;
+  --store-bg-accent: #f0eeeb;
+  --store-surface: #ffffff;
+  --store-surface-muted: #f5f3f0;
+  --store-text: #1c1917;
+  --store-text-muted: #78716c;
+  --store-border: #e7e5e4;
+  --store-primary: #1c1917;
+  --store-primary-hover: #292524;
+  --store-primary-fg: #fafaf9;
+  --store-accent: #9a3412;
+  --store-accent-hover: #7c2d12;
+  --store-accent-soft: #fff7ed;
+  --store-deal: #c2410c;
+  --store-success: #047857;
+  --store-header: rgba(255, 255, 255, 0.92);
+  --store-header-border: rgba(28, 25, 23, 0.08);
+  --store-nav: rgba(247, 245, 242, 0.96);
+  --store-shadow: 0 8px 30px rgba(28, 25, 23, 0.06);
+  --store-glow: 0 0 0 1px rgba(28, 25, 23, 0.04), 0 20px 48px rgba(28, 25, 23, 0.08);
+  --store-focus: rgba(154, 52, 18, 0.35);
+  --store-input-bg: #f5f3f0;
+  --store-image-bg: #f0eeeb;
+
+  --amazon-page: var(--store-bg);
+  --amazon-card: var(--store-surface);
+  --amazon-text: var(--store-text);
+  --amazon-text-secondary: var(--store-text-muted);
+  --amazon-border: var(--store-border);
+}
+
+.dark {
+  color-scheme: dark;
+  --store-bg: #0c0a09;
+  --store-bg-accent: #141110;
+  --store-surface: #1c1917;
+  --store-surface-muted: #292524;
+  --store-text: #fafaf9;
+  --store-text-muted: #a8a29e;
+  --store-border: rgba(250, 250, 249, 0.1);
+  --store-primary: #fafaf9;
+  --store-primary-hover: #e7e5e4;
+  --store-primary-fg: #1c1917;
+  --store-accent: #ea580c;
+  --store-accent-hover: #fb923c;
+  --store-accent-soft: rgba(234, 88, 12, 0.12);
+  --store-deal: #fb7185;
+  --store-success: #34d399;
+  --store-header: rgba(12, 10, 9, 0.92);
+  --store-header-border: rgba(250, 250, 249, 0.08);
+  --store-nav: rgba(20, 17, 16, 0.96);
+  --store-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  --store-glow: 0 0 0 1px rgba(250, 250, 249, 0.06), 0 24px 56px rgba(0, 0, 0, 0.45);
+  --store-focus: rgba(234, 88, 12, 0.4);
+  --store-input-bg: #292524;
+  --store-image-bg: #292524;
+
+  --amazon-page: var(--store-bg);
+  --amazon-card: var(--store-surface);
+  --amazon-text: var(--store-text);
+  --amazon-text-secondary: var(--store-text-muted);
+  --amazon-border: var(--store-border);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--store-bg);
+  color: var(--store-text);
+  font-family: var(--font-sans), "Plus Jakarta Sans", system-ui, sans-serif;
+  font-feature-settings: "rlig" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-sans), "Plus Jakarta Sans", system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background: rgba(154, 52, 18, 0.18);
+  color: var(--store-text);
+}
+
+input,
+select,
+textarea {
+  color: inherit;
+}
+
+select:not([multiple]) {
+  appearance: none;
+  background-color: var(--store-input-bg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2378716c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.65rem center;
+  padding-right: 2rem;
+}
+
+select option {
+  background: var(--store-surface);
+  color: var(--store-text);
+}
+
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@layer components {
+  .amazon-card,
+  .store-card {
+    @apply rounded-2xl border border-[color:var(--store-border)] bg-[color:var(--store-surface)] p-4 shadow-soft transition duration-300 hover:-translate-y-0.5 hover:shadow-cardHover;
+  }
+
+  .amazon-section,
+  .store-section {
+    @apply mx-auto max-w-amazon px-3 py-4 sm:px-4;
+  }
+
+  .amazon-btn-primary,
+  .store-btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold shadow-sm transition active:scale-[0.98];
+    background: var(--store-primary);
+    color: var(--store-primary-fg);
+  }
+
+  .amazon-btn-primary:hover,
+  .store-btn-primary:hover {
+    background: var(--store-primary-hover);
+  }
+
+  .amazon-btn-secondary,
+  .store-btn-secondary {
+    @apply inline-flex items-center justify-center rounded-xl border border-[color:var(--store-border)] bg-[color:var(--store-surface-muted)] px-4 py-2.5 text-sm font-semibold text-[color:var(--store-text)] shadow-sm transition;
+  }
+
+  .amazon-btn-secondary:hover,
+  .store-btn-secondary:hover {
+    border-color: color-mix(in srgb, var(--store-accent) 35%, var(--store-border));
+    background: var(--store-accent-soft);
+  }
+
+  .amazon-link,
+  .store-link {
+    color: var(--store-accent);
+    transition: color 0.15s ease;
+  }
+
+  .amazon-link:hover,
+  .store-link:hover {
+    color: var(--store-accent-hover);
+    text-decoration: underline;
+  }
+
+  .store-glass {
+    @apply border border-[color:var(--store-header-border)] bg-[color:var(--store-header)] backdrop-blur-xl;
+  }
+
+  .store-pill {
+    @apply rounded-full border border-[color:var(--store-border)] bg-[color:var(--store-surface-muted)] px-3 py-1.5 text-sm transition;
+  }
+
+  .store-pill:hover {
+    border-color: color-mix(in srgb, var(--store-accent) 30%, var(--store-border));
+    color: var(--store-accent);
+  }
+
+  .store-panel {
+    @apply rounded-2xl border border-[color:var(--store-border)] bg-[color:var(--store-surface)] shadow-soft;
+  }
+
+  .store-input {
+    @apply rounded-lg border border-[color:var(--store-border)] bg-[color:var(--store-input-bg)] text-sm text-[color:var(--store-text)] outline-none focus:border-[color:var(--store-accent)] focus:ring-2 focus:ring-[color:var(--store-focus)];
+  }
+
+  .dashboard-label {
+    @apply mb-1.5 block text-sm font-semibold text-[color:var(--store-text)];
+  }
+
+  .dashboard-muted {
+    @apply text-sm text-[color:var(--store-text-muted)];
+  }
+
+  .dashboard-heading {
+    @apply font-display text-xl font-bold text-[color:var(--store-text)];
+  }
+
+  .dashboard-link {
+    @apply text-sm font-semibold text-[color:var(--store-accent)] transition hover:underline;
+  }
+
+  .dashboard-card-inner {
+    @apply rounded-xl border border-[color:var(--store-border)] bg-[color:var(--store-surface-muted)] p-4;
+  }
+
+  .dashboard-strip {
+    @apply bg-[color:var(--store-surface-muted)] px-5 py-4;
+  }
+
+  .store-image-frame {
+    @apply bg-[color:var(--store-image-bg)];
+  }
+
+  .store-divider {
+    @apply border-[color:var(--store-border)];
+  }
+
+  .store-scroll {
+    @apply overflow-y-auto no-scrollbar;
+    scrollbar-width: none;
+  }
+
+  .store-scroll-x {
+    @apply overflow-x-auto no-scrollbar;
+    scrollbar-width: none;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  .text-brand {
+    color: var(--store-accent);
+  }
+}
+
+[data-sonner-toaster] [data-sonner-toast].store-toast {
+  background: var(--store-surface) !important;
+  border: 1px solid var(--store-border) !important;
+  color: var(--store-text) !important;
+  box-shadow: var(--store-shadow) !important;
+}
+
+[data-sonner-toaster] [data-sonner-toast].store-toast [data-title] {
+  color: var(--store-text) !important;
+}
+
+[data-sonner-toaster] [data-sonner-toast].store-toast [data-description] {
+  color: var(--store-text-muted) !important;
+}
+
+[data-sonner-toaster] [data-sonner-toast].store-toast [data-button] {
+  background: var(--store-primary) !important;
+  color: var(--store-primary-fg) !important;
+}
+
+[data-sonner-toaster] [data-sonner-toast].store-toast [data-close-button] {
+  background: var(--store-surface-muted) !important;
+  border-color: var(--store-border) !important;
+  color: var(--store-text-muted) !important;
+}

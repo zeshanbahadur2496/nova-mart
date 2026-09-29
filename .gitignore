@@ -1,0 +1,12 @@
+.env
+.env*.local
+.agent-logs
+.next
+node_modules
+dist
+coverage
+*.log
+prisma/dev.db
+.data
+*.tsbuildinfo
+.DS_Store
